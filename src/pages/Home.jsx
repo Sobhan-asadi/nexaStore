@@ -1,5 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
-import SliderMain from "../swiper/Slider";
+import Category from "../components/Category";
+import InfoSection from "../components/InfoSection";
+import SliderMain from "../libs/Slider";
 
 const categories = [
   "Electonics",
@@ -40,6 +42,8 @@ export default function HomePage() {
           <SliderMain showImag={showImag} />
         </div>
       </div>
+      <InfoSection />
+      <Category />
     </div>
   );
 }

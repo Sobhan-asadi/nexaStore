@@ -43,7 +43,7 @@ export default function SliderMain({ showImag }) {
                 src={item.image}
                 alt={item.title}
               />
-              <div className="slide-text">
+              <div className="slide-text hidden md:block">
                 <p className="title">{item.title}</p>
                 <p className="price">${item.price}</p>
               </div>
