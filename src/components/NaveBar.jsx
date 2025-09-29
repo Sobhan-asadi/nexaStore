@@ -48,18 +48,9 @@ function NaveBar() {
         </NavLink>
 
         <NavLink
-          to="/shop"
-          className={({ isActive }) =>
-            `hover:underline hover:decoration-sky-400 hover:decoration-2 hover:underline-offset-4 ${isActive ? "underline decoration-sky-400 decoration-2" : ""}`
-          }
-        >
-          Shop
-        </NavLink>
-
-        <NavLink
           to="contact"
           className={({ isActive }) =>
-            `hover:underline hover:decoration-sky-400 hover:decoration-2 hover:underline-offset-4 ${isActive ? "underline decoration-sky-400 decoration-2" : ""}`
+            `hover:underline hover:decoration-sky-400 hover:decoration-2 hover:underline-offset-4 ${isActive ? "underline decoration-sky-400 decoration-2 underline-offset-4" : ""}`
           }
         >
           Contact
@@ -68,7 +59,7 @@ function NaveBar() {
         <NavLink
           to="about"
           className={({ isActive }) =>
-            `hover:underline hover:decoration-sky-400 hover:decoration-2 hover:underline-offset-4 ${isActive ? "underline decoration-sky-400 decoration-2" : ""}`
+            `hover:underline hover:decoration-sky-400 hover:decoration-2 hover:underline-offset-4 ${isActive ? "underline decoration-sky-400 decoration-2 underline-offset-4" : ""}`
           }
         >
           About

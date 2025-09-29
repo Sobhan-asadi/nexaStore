@@ -1,4 +1,6 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLoaderData } from "react-router-dom";
+import AllProduct from "../components/AllProduct";
 import Category from "../components/Category";
 import InfoSection from "../components/InfoSection";
 import SliderMain from "../libs/Slider";
@@ -13,9 +15,12 @@ const categories = [
 ];
 
 export default function HomePage() {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.cart);
+
   const data = useLoaderData();
+
   const showImag = data.slice(-10, 20);
-  console.log(showImag);
 
   return (
     <div className="mt-2 bg-white px-4 md:px-16 lg:px-24">
@@ -42,8 +47,12 @@ export default function HomePage() {
           <SliderMain showImag={showImag} />
         </div>
       </div>
+      {/* Info */}
       <InfoSection />
+      {/* Category */}
       <Category />
+      {/* All Product */}
+      <AllProduct products={data} />
     </div>
   );
 }
