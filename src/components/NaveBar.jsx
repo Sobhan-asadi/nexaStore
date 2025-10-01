@@ -1,7 +1,9 @@
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 function NaveBar() {
+  const state = useSelector((state) => state.cart.items);
   return (
     <nav className="bg-white shadow-md">
       <div className="lg:px:24 container mx-auto flex items-center justify-between px-4 py-4 md:px-16">
@@ -23,8 +25,13 @@ function NaveBar() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <Link to="cart">
+          <Link className="relative" to="shoppingCart">
             <FaShoppingCart className="text-lg" />
+            {state.length > 0 && (
+              <span className="absolute -top-3.5 left-1.5 flex h-4 w-4 items-center justify-center rounded-2xl bg-sky-800 text-sm text-white">
+                {state.length}
+              </span>
+            )}
           </Link>
 
           <button className="hidden cursor-pointer md:block">
