@@ -1,10 +1,12 @@
 import { FaTrashAlt } from "react-icons/fa";
 import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import emptyCart from "../../public/close-up-toy-cart-with-easter-eggs.jpg";
 import { cartActions } from "../store/cartSlice";
 
 export default function ShoppingCart() {
+  const navigate = useNavigate();
   const items = useSelector((state) => state.cart.items);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const dispatch = useDispatch();
@@ -19,6 +21,10 @@ export default function ShoppingCart() {
 
   function handleRemoveItem(item) {
     dispatch(cartActions.removeItem(item));
+  }
+
+  function handelCheckout() {
+    navigate("Checkout");
   }
 
   return (
@@ -104,7 +110,10 @@ export default function ShoppingCart() {
                   <span className="font-semibold">TotalPrice:</span>
                   <span className="font-bold">${totalAmount.toFixed(2)}</span>
                 </div>
-                <button className="w-full cursor-pointer rounded bg-sky-500 px-4 py-2 font-bold text-white transition hover:bg-sky-700">
+                <button
+                  onClick={handelCheckout}
+                  className="w-full cursor-pointer rounded bg-sky-500 px-4 py-2 font-bold text-white transition hover:bg-sky-700"
+                >
                   Proceed to checkout
                 </button>
               </div>
