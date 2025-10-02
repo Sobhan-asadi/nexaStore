@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function NaveBar() {
   const state = useSelector((state) => state.cart.items);
+
   return (
     <nav className="bg-white shadow-md">
       <div className="lg:px:24 container mx-auto flex items-center justify-between px-4 py-4 md:px-16">

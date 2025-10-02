@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useLoaderData } from "react-router-dom";
 import AllProduct from "../components/AllProduct";
 import Category from "../components/Category";
 import InfoSection from "../components/InfoSection";
+import Loader from "../components/Loader";
 import SliderMain from "../libs/Slider";
 
 const categories = [
@@ -15,10 +15,11 @@ const categories = [
 ];
 
 export default function HomePage() {
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state.cart);
-
   const data = useLoaderData();
+
+  if (!data) {
+    return <Loader />;
+  }
 
   const showImag = data.slice(-10, 20);
 
@@ -59,6 +60,7 @@ export default function HomePage() {
 
 export async function loader() {
   const res = await fetch(`https://fakestoreapi.com/products`);
+
   if (!res.ok) {
     return { message: "error" };
   } else {
