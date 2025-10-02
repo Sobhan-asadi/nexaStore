@@ -1,21 +1,24 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import AboutPage from "../pages/AboutPage.jsx";
-import Checkout from "../pages/Checkout.jsx";
-import ContactPage from "../pages/ContactPage.jsx";
-import DetailsPage from "../pages/DetailsPage.jsx";
-import HomePage, { loader as homeLoder } from "../pages/Home.jsx";
-import Layout from "../pages/Layout.jsx";
-import LoginPage from "../pages/LoginPage.jsx";
-import RegisterPage from "../pages/RegisterPage.jsx";
-import ShoppingCart from "../pages/ShoppingCart.jsx";
+const Layout = lazy(() => import("../pages/Layout.jsx"));
+const HomePage = lazy(() => import("../pages/Home.jsx"));
+const DetailsPage = lazy(() => import("../pages/DetailsPage.jsx"));
+const ShoppingCart = lazy(() => import("../pages/ShoppingCart.jsx"));
+const Checkout = lazy(() => import("../pages/Checkout.jsx"));
+const AboutPage = lazy(() => import("../pages/AboutPage.jsx"));
+const ContactPage = lazy(() => import("../pages/ContactPage.jsx"));
+const RegisterPage = lazy(() => import("../pages/RegisterPage.jsx"));
+const LoginPage = lazy(() => import("../pages/LoginPage.jsx"));
+
+import { loader as homeLoader } from "../pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
-      { index: true, element: <HomePage />, loader: homeLoder },
+      { index: true, element: <HomePage />, loader: homeLoader },
       { path: "details", element: <DetailsPage /> },
       { path: "shoppingCart", element: <ShoppingCart /> },
       { path: "shoppingCart/checkout", element: <Checkout /> },
