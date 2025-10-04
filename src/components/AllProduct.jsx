@@ -44,10 +44,10 @@ export default function AllProduct({ products }) {
                       alt={product.title}
                     />
                     <div className="my-2">
-                      <h2 className="line-clamp-2 text-sm font-semibold">
+                      <h2 className="line-clamp-2 text-center text-sm font-semibold">
                         {product.title}
                       </h2>
-                      <p className="my-4 text-sky-600">${product.price}</p>
+                      <p className="my-4 px-1 text-sky-600">${product.price}</p>
                     </div>
                   </div>
                 </Gestures>

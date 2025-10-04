@@ -2,7 +2,7 @@ import { FaLightbulb, FaPhoneAlt, FaUsers } from "react-icons/fa";
 
 export default function AboutUs() {
   return (
-    <div className="mx-auto mt-20 max-w-4xl rounded-lg bg-white p-8 shadow-lg">
+    <div className="mx-auto mt-20 flex max-w-4xl items-center rounded-lg bg-white p-8 shadow-lg">
       <h2 className="mb-10 text-center text-3xl font-extrabold text-indigo-600">
         About Us
       </h2>

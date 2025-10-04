@@ -19,7 +19,7 @@ function NaveBar() {
             <input
               type="text"
               placeholder="Search Product"
-              className="w-full border px-4 py-2"
+              className="w-full rounded-sm border px-4 py-2"
             />
             <FaSearch className="absolute top-3 right-3 text-sky-500" />
           </form>

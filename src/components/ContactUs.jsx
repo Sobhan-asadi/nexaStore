@@ -68,7 +68,7 @@ export default function ContactUs() {
         </form>
 
         {/* Contact Info */}
-        <div className="space-y-6 text-gray-700">
+        <div className="space-y-6 text-center text-gray-700">
           <div>
             <h3 className="mb-2 text-xl font-semibold text-sky-500">
               Our Office
