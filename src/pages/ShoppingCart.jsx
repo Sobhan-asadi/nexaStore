@@ -44,44 +44,53 @@ export default function ShoppingCart() {
                 <div className="w-1/6 py-2 text-center">SUBTOTAL</div>
                 <div className="w-1/6 py-2 text-center">REMOVE</div>
               </div>
-              <div>
+              <div className="">
                 {items.map((item) => (
                   <div
-                    className="mt-6 flex items-center px-4 py-2 shadow-md"
+                    className="mt-6 flex flex-1 flex-wrap items-center justify-around px-4 py-2 shadow-md"
                     key={item.id}
                   >
-                    <div className="flex w-2/6 items-center">
+                    <div className="mb-2 flex items-center p-2 md:m-0 md:w-2/6">
                       <img
-                        className="h-16 w-16 object-contain"
+                        className="h-16 w-full flex-1 gap-x-4 object-contain md:w-16"
                         src={item.image}
                         alt={item.title}
                       />
-                      <h3 className="ml-4 font-semibold">{item.title}</h3>
+                      <h3 className="ml-1 text-sm md:m-0 md:ml-4 md:font-semibold md:text-balance">
+                        {item.title}
+                      </h3>
                     </div>
-                    <div className="w-1/6 text-center">${item.price}</div>
-                    <div className="flex w-1/6 items-center justify-center">
-                      <button
-                        onClick={() => handleDecrease(item)}
-                        className="cursor-pointer px-1.5 text-xl font-bold text-sky-500 hover:text-sky-700"
-                      >
-                        <IoRemoveCircleOutline />
-                      </button>
-                      <span className="mx-2 text-xl">{item.quantity}</span>
-                      <button
-                        onClick={() => handleIncrease(item)}
-                        className="cursor-pointer px-1 text-xl text-sky-500 hover:text-sky-700"
-                      >
-                        <IoAddCircleOutline />
-                      </button>
-                    </div>
-                    <div className="w-1/6 text-center">${item.pluralItems}</div>
-                    <div className="flex w-1/6 justify-center">
-                      <button
-                        onClick={() => handleRemoveItem(item)}
-                        className="cursor-pointer text-sky-500 hover:text-sky-700"
-                      >
-                        <FaTrashAlt />
-                      </button>
+
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="mx-2 w-1/6 text-center">
+                        ${item.price}
+                      </div>
+                      <div className="flex w-1/6 items-center justify-center">
+                        <button
+                          onClick={() => handleDecrease(item)}
+                          className="cursor-pointer px-1.5 text-xl font-bold text-sky-500 hover:text-sky-700"
+                        >
+                          <IoRemoveCircleOutline />
+                        </button>
+                        <span className="mx-2 text-xl">{item.quantity}</span>
+                        <button
+                          onClick={() => handleIncrease(item)}
+                          className="cursor-pointer px-1 text-xl text-sky-500 hover:text-sky-700"
+                        >
+                          <IoAddCircleOutline />
+                        </button>
+                      </div>
+                      <div className="w-1/6 text-center">
+                        ${item.pluralItems}
+                      </div>
+                      <div className="flex w-1/6 justify-center">
+                        <button
+                          onClick={() => handleRemoveItem(item)}
+                          className="cursor-pointer text-sky-500 hover:text-sky-700"
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

@@ -14,12 +14,12 @@ function NaveBar() {
           </Link>
         </div>
 
-        <div className="relative mx-4 flex-1">
+        <div className="relative mx-4 flex-1 gap-4">
           <form>
             <input
               type="text"
               placeholder="Search Product"
-              className="w-full rounded-sm border px-4 py-2"
+              className="w-full rounded-sm border px-4 py-2 placeholder:text-sm md:placeholder:text-base"
             />
             <FaSearch className="absolute top-3 right-3 text-sky-500" />
           </form>
