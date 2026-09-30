@@ -1,75 +1,71 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
-
-const loadCartFromStorage = () => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : { items: [], totalAmount: 0 };
-};
-
-const saveCartToStorage = (state) => {
-    localStorage.setItem("cart", JSON.stringify(state));
+const initialState = {
+  items: [],
 };
 
 const cartSlice = createSlice({
-    name: 'cart',
-    initialState: loadCartFromStorage(),
-    reducers: {
-        addToCart(state, action) {
-            const newProduct = action.payload;
-            const index = state.items.findIndex(item => item.id === newProduct.id);
+  name: "cart",
 
-            if (index > -1) {
-                state.items[index].quantity += 1;
-                state.items[index].pluralItems = state.items[index].price * state.items[index].quantity;
-            } else {
-                state.items.push({ ...newProduct, quantity: 1, pluralItems: newProduct.price });
-            }
+  initialState,
 
-            state.totalAmount = state.items.reduce((sum, item) => sum + item.pluralItems, 0);
-            saveCartToStorage(state);
-        },
+  reducers: {
+    addToCart(state, action) {
+      const product = action.payload;
 
-        increase(state, action) {
-            const index = state.items.findIndex(item => item.id === action.payload.id);
-            if (index > -1) {
-                state.items[index].quantity += 1;
-                state.items[index].pluralItems = state.items[index].price * state.items[index].quantity;
-            }
-            state.totalAmount = state.items.reduce((sum, item) => sum + item.pluralItems, 0);
-            saveCartToStorage(state);
-        },
+      const existingItem = state.items.find((item) => item.id === product.id);
 
-        decrease(state, action) {
-            const index = state.items.findIndex(item => item.id === action.payload.id);
-            if (index > -1) {
-                state.items[index].quantity -= 1;
-                state.items[index].pluralItems = state.items[index].price * state.items[index].quantity;
-                if (state.items[index].quantity === 0) {
-                    state.items.splice(index, 1);
-                }
-            }
-            state.totalAmount = state.items.reduce((sum, item) => sum + item.pluralItems, 0);
-            saveCartToStorage(state);
-        },
+      if (existingItem) {
+        existingItem.quantity += 1;
+        return;
+      }
 
-        removeItem(state, action) {
-            const index = state.items.findIndex(item => item.id === action.payload.id);
-            if (index > -1) {
-                state.items.splice(index, 1);
-            }
-            state.totalAmount = state.items.reduce((sum, item) => sum + item.pluralItems, 0);
-            saveCartToStorage(state);
-        },
-
-        clearCart(state) {
-            state.items = [];
-            state.totalAmount = 0;
-            localStorage.removeItem("cart");
-        }
+      state.items.push({
+        ...product,
+        quantity: 1,
+      });
     },
 
+    increaseQuantity(state, action) {
+      const item = state.items.find((item) => item.id === action.payload);
+
+      if (item) {
+        item.quantity += 1;
+      }
+    },
+
+    decreaseQuantity(state, action) {
+      const item = state.items.find((item) => item.id === action.payload);
+
+      if (!item) {
+        return;
+      }
+
+      if (item.quantity === 1) {
+        state.items = state.items.filter(
+          (cartItem) => cartItem.id !== action.payload,
+        );
+
+        return;
+      }
+
+      item.quantity -= 1;
+    },
+
+    removeItem(state, action) {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+    },
+
+    clearCart(state) {
+      state.items = [];
+    },
+
+    replaceCart(state, action) {
+      state.items = action.payload;
+    },
+  },
 });
 
 export const cartActions = cartSlice.actions;
+
 export default cartSlice.reducer;

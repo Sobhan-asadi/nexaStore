@@ -1,78 +1,84 @@
-#app {
-  height: 100%;
-}
-
-.swiper {
+.nexa-hero-swiper {
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  /* background-color: #d0e2e6ac; */
+.nexa-hero-swiper .swiper-slide {
+  height: auto;
+}
+
+.nexa-hero-swiper .swiper-pagination {
+  bottom: 22px !important;
+  left: 24px !important;
+  width: auto !important;
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 6px;
 }
 
-.slide-text {
-  position: absolute;
-  bottom: 20%;
-  left: 80%;
-  transform: translateX(-50%);
-  background-color: #133d9f77;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  text-align: center;
-  max-width: 90%;
+.nexa-hero-swiper .swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  margin: 0 !important;
+  border-radius: 999px;
+  background: #ffffff;
+  opacity: 0.3;
+  transition:
+    width 250ms ease,
+    opacity 250ms ease,
+    background-color 250ms ease;
 }
 
-.slide-text .title {
-  font-size: 1rem;
-  font-weight: bold;
+.nexa-hero-swiper .swiper-pagination-bullet-active {
+  width: 24px;
+  background: #2dd4b0;
+  opacity: 1;
 }
 
-.slide-text .price {
-  font-size: 0.9rem;
-  color: #ffd700;
-  font-weight: 600;
+.hero-slider-prev.swiper-button-disabled,
+.hero-slider-next.swiper-button-disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
 }
 
-.swiper-slide img {
-  display: block;
+@media (min-width: 640px) {
+  .nexa-hero-swiper .swiper-pagination {
+    bottom: 30px !important;
+    left: 40px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nexa-hero-swiper .swiper-pagination {
+    bottom: 38px !important;
+    left: 56px !important;
+  }
+}
+
+.product-details-gallery .pswp-gallery {
+  display: flex;
   width: 100%;
   height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-details-gallery .pswp-gallery a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-details-gallery .pswp-gallery img {
+  width: 100%;
+  max-width: 420px;
+  max-height: 440px;
   object-fit: contain;
+  transition: transform 400ms ease;
 }
 
-.autoplay-progress {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  z-index: 10;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #0f1ba6;
-}
-
-.autoplay-progress svg {
-  --progress: 0;
-  position: absolute;
-  left: 0;
-  top: 0px;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  stroke-width: 4px;
-  stroke: #ffd700;
-  fill: none;
-  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
-  stroke-dasharray: 125.6;
-  transform: rotate(-90deg);
+.product-details-gallery .pswp-gallery img:hover {
+  transform: scale(1.03);
 }

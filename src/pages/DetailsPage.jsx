@@ -1,19 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaCheck,
+  FaRegHeart,
+  FaShieldAlt,
+  FaShoppingBag,
+  FaStar,
+  FaTruck,
+  FaUndoAlt,
+} from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link, useLoaderData } from "react-router-dom";
+
 import Photoswipe from "../libs/Photoswipe";
 import SuccessToast from "../libs/SuccessToast";
 import { cartActions } from "../store/cartSlice";
 
-const ProductDetails = () => {
+export default function ProductDetails() {
+  const product = useLoaderData();
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product.product);
 
-  if (!product || !product.title)
-    return (
-      <div className="mt-12 text-center text-xl text-gray-500">
-        No product selected
-      </div>
-    );
   const images = [
     {
       largeURL: product.image,
@@ -25,59 +30,230 @@ const ProductDetails = () => {
 
   function handleAddToCart() {
     dispatch(cartActions.addToCart(product));
-    SuccessToast("Item added to cart");
+    SuccessToast("Added to your cart");
   }
 
   return (
-    <div className="mx-auto mt-16 flex max-w-6xl flex-col gap-10 rounded-xl bg-white p-10 shadow-2xl md:flex-row md:gap-16">
-      <div className="flex flex-1 items-center justify-center">
-        <figure>
-          <Photoswipe galleryID="product-gallery" images={images} />
-          <figure className="mt-8">
-            <div className="flex h-14 w-full items-center justify-center rounded-md bg-gray-900 text-lg leading-relaxed text-sky-200 underline underline-offset-8">
-              Click on the image to see the full product image.
-            </div>
-          </figure>
-        </figure>
-      </div>
+    <div className="bg-[#fafafa]">
+      <div className="page-container py-6 sm:py-8">
+        {/* Breadcrumb */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex flex-wrap items-center gap-2 text-xs text-zinc-500"
+        >
+          <Link to="/" className="transition hover:text-zinc-950">
+            Home
+          </Link>
 
-      <div className="flex flex-1 flex-col justify-center">
-        <Link
-          to="/"
-          className="mb-8 inline-block rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white transition hover:bg-indigo-700"
-        >
-          Back
-        </Link>
-        <button
-          onClick={handleAddToCart}
-          className="mb-8 inline-block cursor-pointer rounded-lg bg-indigo-600 px-6 py-3 text-center font-semibold text-white transition hover:bg-indigo-700"
-        >
-          Add to cart
-        </button>
-        <h1 className="mb-6 text-4xl font-bold text-gray-900">
-          {product.title}
-        </h1>
-        <p className="mb-8 text-lg leading-relaxed text-gray-700">
-          {product.description}
-        </p>
-        <div className="mb-6 text-3xl font-extrabold text-indigo-600">
-          ${product.price}
-        </div>
-        <div className="flex flex-wrap gap-6 text-lg text-gray-600">
-          <div className="rounded-full bg-indigo-100 px-5 py-2 font-semibold">
-            Category: {product.category}
-          </div>
+          <span>/</span>
+
+          <Link to="/#products" className="transition hover:text-zinc-950">
+            Shop
+          </Link>
+
+          <span>/</span>
+
+          <span className="max-w-[220px] truncate font-medium text-zinc-800 sm:max-w-sm">
+            {product.title}
+          </span>
+        </nav>
+
+        {/* Product */}
+        <section className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-14 xl:gap-20">
+          {/* Product image */}
           <div>
-            Rating:{" "}
-            <span className="font-bold text-yellow-500">
-              {product.rating?.rate}
-            </span>{" "}
-            ({product.rating?.count} reviews)
+            <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[28px] border border-zinc-200 bg-white p-8 sm:min-h-[560px] sm:p-14">
+              <span className="bg-brand-50 text-brand-700 absolute top-5 left-5 rounded-full px-3 py-1.5 text-[10px] font-bold tracking-[0.12em] uppercase">
+                {product.category}
+              </span>
+
+              <div className="product-details-gallery flex h-full w-full items-center justify-center">
+                <Photoswipe
+                  galleryID={`product-gallery-${product.id}`}
+                  images={images}
+                />
+              </div>
+            </div>
+
+            <p className="mt-3 text-center text-xs text-zinc-400">
+              Click the image to view it in full size.
+            </p>
           </div>
-        </div>
+
+          {/* Product information */}
+          <div className="flex flex-col justify-center py-2 lg:py-8">
+            <Link
+              to="/#products"
+              className="mb-7 flex w-fit items-center gap-2 text-sm font-semibold text-zinc-500 transition hover:text-zinc-950"
+            >
+              <FaArrowLeft className="text-xs" />
+              Back to collection
+            </Link>
+
+            <p className="text-brand-700 text-xs font-bold tracking-[0.18em] uppercase">
+              {product.category}
+            </p>
+
+            <h1 className="font-display mt-3 max-w-xl text-3xl leading-tight font-extrabold tracking-[-0.045em] text-zinc-950 sm:text-4xl xl:text-5xl">
+              {product.title}
+            </h1>
+
+            {/* Rating */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <FaStar
+                    key={index}
+                    className={
+                      index < Math.round(product.rating?.rate ?? 0)
+                        ? "text-sm text-amber-400"
+                        : "text-sm text-zinc-200"
+                    }
+                  />
+                ))}
+              </div>
+
+              <span className="text-sm font-bold text-zinc-800">
+                {product.rating?.rate ?? "—"}
+              </span>
+
+              <span className="text-sm text-zinc-400">
+                {product.rating?.count ?? 0} reviews
+              </span>
+            </div>
+
+            {/* Price */}
+            <div className="mt-7 flex items-end gap-3 border-b border-zinc-200 pb-7">
+              <span className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl">
+                ${product.price.toFixed(2)}
+              </span>
+
+              <span className="bg-brand-50 text-brand-700 mb-1 rounded-full px-3 py-1 text-xs font-bold">
+                In stock
+              </span>
+            </div>
+
+            {/* Description */}
+            <div className="py-7">
+              <h2 className="text-sm font-bold text-zinc-950">
+                About this product
+              </h2>
+
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-600 sm:text-[15px]">
+                {product.description}
+              </p>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="hover:bg-brand-600 flex h-13 flex-1 items-center justify-center gap-2 rounded-full bg-zinc-950 px-6 text-sm font-bold text-white transition"
+              >
+                <FaShoppingBag />
+                Add to cart
+              </button>
+
+              <button
+                type="button"
+                aria-label="Add product to wishlist"
+                className="flex h-13 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 text-sm font-semibold text-zinc-700 transition hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+              >
+                <FaRegHeart />
+
+                <span className="sm:hidden xl:inline">Save for later</span>
+              </button>
+            </div>
+
+            {/* Benefits */}
+            <div className="mt-8 grid gap-3 border-t border-zinc-200 pt-7 sm:grid-cols-3">
+              <div className="flex items-start gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
+                  <FaTruck className="text-sm" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold text-zinc-900">
+                    Free shipping
+                  </p>
+
+                  <p className="mt-1 text-[11px] leading-4 text-zinc-500">
+                    Orders over $75
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
+                  <FaUndoAlt className="text-sm" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold text-zinc-900">
+                    Easy returns
+                  </p>
+
+                  <p className="mt-1 text-[11px] leading-4 text-zinc-500">
+                    30-day returns
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
+                  <FaShieldAlt className="text-sm" />
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold text-zinc-900">
+                    Secure checkout
+                  </p>
+
+                  <p className="mt-1 text-[11px] leading-4 text-zinc-500">
+                    Protected purchase
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Availability */}
+            <div className="border-brand-100 bg-brand-50/60 mt-7 flex items-center gap-2 rounded-2xl border px-4 py-3">
+              <div className="bg-brand-600 flex h-5 w-5 items-center justify-center rounded-full text-white">
+                <FaCheck className="text-[8px]" />
+              </div>
+
+              <p className="text-brand-800 text-xs font-semibold">
+                Available and ready to add to your cart
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
-};
+}
 
-export default ProductDetails;
+export async function loader({ params }) {
+  const response = await fetch(
+    `https://fakestoreapi.com/products/${params.productId}`,
+  );
+
+  if (!response.ok) {
+    throw new Response("Product not found.", {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+
+  const product = await response.json();
+
+  if (!product?.id) {
+    throw new Response("Product not found.", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+
+  return product;
+}

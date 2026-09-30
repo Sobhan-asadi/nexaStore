@@ -1,11 +1,78 @@
 /** @format */
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fauna+One&display=swap");
+@theme {
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Manrope", sans-serif;
 
-.cinzel {
-  font-family: "Cinzel", serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+  --color-brand-50: #f0fdf9;
+  --color-brand-100: #ccfbef;
+  --color-brand-200: #99f6df;
+  --color-brand-300: #5eeacb;
+  --color-brand-400: #2dd4b0;
+  --color-brand-500: #14b894;
+  --color-brand-600: #0d9477;
+  --color-brand-700: #0f7662;
+  --color-brand-800: #115e50;
+  --color-brand-900: #134e43;
+  --color-brand-950: #042f29;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+    margin: 0;
+    background: #fafafa;
+    color: #18181b;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: #ccfbef;
+    color: #134e43;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    @apply text-2xl font-bold tracking-[-0.03em] text-zinc-950 sm:text-3xl;
+  }
+
+  .section-description {
+    @apply mt-2 max-w-2xl text-sm leading-6 text-zinc-500 sm:text-base;
+  }
 }
