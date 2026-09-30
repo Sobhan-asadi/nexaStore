@@ -1,50 +1,58 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import cartReducer from "./cartSlice";
+import wishlistReducer from "./wishlistSlice";
 
 const CART_STORAGE_KEY = "nexa-cart";
+const WISHLIST_STORAGE_KEY = "nexa-wishlist";
 
-function loadCart() {
+function loadStoredItems(storageKey) {
   try {
-    const storedCart = localStorage.getItem(CART_STORAGE_KEY);
+    const storedItems = localStorage.getItem(storageKey);
 
-    if (!storedCart) {
-      return undefined;
+    if (!storedItems) {
+      return [];
     }
 
-    const parsedCart = JSON.parse(storedCart);
+    const parsedItems = JSON.parse(storedItems);
 
-    if (!Array.isArray(parsedCart)) {
-      return undefined;
-    }
-
-    return {
-      cart: {
-        items: parsedCart,
-      },
-    };
+    return Array.isArray(parsedItems) ? parsedItems : [];
   } catch {
-    return undefined;
+    return [];
   }
 }
+
+const preloadedState = {
+  cart: {
+    items: loadStoredItems(CART_STORAGE_KEY),
+  },
+
+  wishlist: {
+    items: loadStoredItems(WISHLIST_STORAGE_KEY),
+  },
+};
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
+    wishlist: wishlistReducer,
   },
 
-  preloadedState: loadCart(),
+  preloadedState,
 });
 
 store.subscribe(() => {
   try {
+    const state = store.getState();
+
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cart.items));
+
     localStorage.setItem(
-      CART_STORAGE_KEY,
-      JSON.stringify(store.getState().cart.items),
+      WISHLIST_STORAGE_KEY,
+      JSON.stringify(state.wishlist.items),
     );
   } catch {
-    // The cart still works during the current session
-    // if browser storage is unavailable.
+    //
   }
 });
 

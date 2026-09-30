@@ -1,71 +1,98 @@
-import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { FiArrowUpRight, FiMail } from "react-icons/fi";
 import { Link } from "react-router-dom";
+
+const shopLinks = [
+  { label: "Shop all", to: "/#products" },
+  { label: "Trending", to: "/#trending" },
+  { label: "Shopping cart", to: "/cart" },
+];
+
+const companyLinks = [
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
+];
 
 export default function Footer() {
   return (
-    <footer className="mt-12 bg-gray-800 px-4 py-8 text-white md:px-16 lg:px-24">
-      <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-3">
-        <div className="">
-          <h3 className="text-xl font-semibold">Nexa-Store</h3>
-          <p className="mt-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quas
-            laborum praesentium iure sed animi dolores explicabo nesciunt
-            veritatis aliquam!
-          </p>
-        </div>
+    <footer className="mt-20 border-t border-zinc-200 bg-zinc-950 text-white">
+      <div className="page-container">
+        <div className="grid gap-12 py-14 sm:py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_0.7fr_0.7fr_1fr] lg:gap-10">
+          <div>
+            <Link
+              to="/"
+              className="font-display inline-flex text-2xl font-extrabold tracking-[-0.04em]"
+            >
+              Nexa
+              <span className="text-brand-400">Store.</span>
+            </Link>
 
-        <div className="flex flex-col md:items-center">
-          <h4 className="text-lg font-semibold">Quick Link</h4>
-          <ul className="mt-4 space-y-2">
-            <li>
-              <Link className="transition-all hover:underline" to="home">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link className="transition-all hover:underline" to="about">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link className="transition-all hover:underline" to="contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-zinc-400">
+              A modern storefront experience built around simple product
+              discovery, responsive shopping, and a streamlined checkout flow.
+            </p>
 
-        <div className="">
-          <h4 className="text-lg font-semibold">Follow us</h4>
-          <div className="mt-4 flex space-x-4">
-            <a className="transition-all hover:text-sky-400" href="#">
-              <FaFacebook />
+            <a
+              href="mailto:sobhanasadi703@gmail.com"
+              className="hover:text-brand-400 mt-6 flex w-fit items-center gap-2 text-sm font-semibold text-zinc-300 transition"
+            >
+              <FiMail />
+              sobhanasadi703@gmail.com
             </a>
-            <a className="transition-all hover:text-sky-400" href="#">
-              <FaTwitter />
-            </a>
-            <a className="transition-all hover:text-sky-400" href="#">
-              <FaGithub />
-            </a>
-            <a className="transition-all hover:text-sky-400" href="#">
-              <FaLinkedin />
+          </div>
+
+          <FooterColumn title="Shop" links={shopLinks} />
+
+          <FooterColumn title="Explore" links={companyLinks} />
+
+          <div>
+            <p className="text-sm font-bold text-white">Built for the web</p>
+
+            <p className="mt-4 text-sm leading-6 text-zinc-400">
+              Designed and developed as a front-end e-commerce portfolio
+              project.
+            </p>
+
+            <a
+              href="https://github.com/Sobhan-asadi"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:border-brand-500 hover:text-brand-400 mt-5 inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2.5 text-xs font-bold text-zinc-200 transition"
+            >
+              <FaGithub className="text-base" />
+              GitHub
+              <FiArrowUpRight />
             </a>
           </div>
         </div>
-      </div>
-      <div className="mt-9 border-t border-r-gray-400 pt-4">
-        <div className="container mx-auto flex flex-col items-center justify-between md:flex-row">
-          <p>&copy;2025 All rights reserved</p>
-          <div className="flex space-x-4 md:mt-0">
-            <a className="hover:underline" href="#">
-              Privacy Policy
-            </a>
-            <a className="hover:underline" href="">
-              Terms & Conditions
-            </a>
-          </div>
+
+        <div className="flex flex-col gap-4 border-t border-zinc-800 py-6 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Nexa Store. Portfolio project.</p>
+
+          <p>Designed &amp; developed by Sobhan Asadi</p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, links }) {
+  return (
+    <div>
+      <p className="text-sm font-bold text-white">{title}</p>
+
+      <ul className="mt-5 space-y-3">
+        {links.map((link) => (
+          <li key={link.label}>
+            <Link
+              to={link.to}
+              className="hover:text-brand-400 text-sm text-zinc-400 transition"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

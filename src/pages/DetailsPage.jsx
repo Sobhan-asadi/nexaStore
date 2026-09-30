@@ -1,16 +1,14 @@
 import {
   FaArrowLeft,
   FaCheck,
-  FaRegHeart,
-  FaShieldAlt,
   FaShoppingBag,
   FaStar,
   FaTruck,
-  FaUndoAlt,
 } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useLoaderData } from "react-router-dom";
 
+import WishlistButton from "../components/wishlist/WishlistButton";
 import Photoswipe from "../libs/Photoswipe";
 import SuccessToast from "../libs/SuccessToast";
 import { cartActions } from "../store/cartSlice";
@@ -36,7 +34,6 @@ export default function ProductDetails() {
   return (
     <div className="bg-[#fafafa]">
       <div className="page-container py-6 sm:py-8">
-        {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
           className="flex flex-wrap items-center gap-2 text-xs text-zinc-500"
@@ -58,9 +55,7 @@ export default function ProductDetails() {
           </span>
         </nav>
 
-        {/* Product */}
         <section className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-14 xl:gap-20">
-          {/* Product image */}
           <div>
             <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-[28px] border border-zinc-200 bg-white p-8 sm:min-h-[560px] sm:p-14">
               <span className="bg-brand-50 text-brand-700 absolute top-5 left-5 rounded-full px-3 py-1.5 text-[10px] font-bold tracking-[0.12em] uppercase">
@@ -80,7 +75,6 @@ export default function ProductDetails() {
             </p>
           </div>
 
-          {/* Product information */}
           <div className="flex flex-col justify-center py-2 lg:py-8">
             <Link
               to="/#products"
@@ -98,7 +92,6 @@ export default function ProductDetails() {
               {product.title}
             </h1>
 
-            {/* Rating */}
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, index) => (
@@ -122,18 +115,12 @@ export default function ProductDetails() {
               </span>
             </div>
 
-            {/* Price */}
             <div className="mt-7 flex items-end gap-3 border-b border-zinc-200 pb-7">
               <span className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl">
                 ${product.price.toFixed(2)}
               </span>
-
-              <span className="bg-brand-50 text-brand-700 mb-1 rounded-full px-3 py-1 text-xs font-bold">
-                In stock
-              </span>
             </div>
 
-            {/* Description */}
             <div className="py-7">
               <h2 className="text-sm font-bold text-zinc-950">
                 About this product
@@ -144,7 +131,6 @@ export default function ProductDetails() {
               </p>
             </div>
 
-            {/* Actions */}
             <div className="flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
@@ -155,19 +141,13 @@ export default function ProductDetails() {
                 Add to cart
               </button>
 
-              <button
-                type="button"
-                aria-label="Add product to wishlist"
-                className="flex h-13 items-center justify-center gap-2 rounded-full border border-zinc-200 bg-white px-6 text-sm font-semibold text-zinc-700 transition hover:border-red-200 hover:bg-red-50 hover:text-red-500"
-              >
-                <FaRegHeart />
-
-                <span className="sm:hidden xl:inline">Save for later</span>
-              </button>
+              <WishlistButton
+                product={product}
+                className="h-13 gap-2 rounded-full border border-zinc-200 bg-white px-6 text-sm font-semibold text-zinc-700 hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+              />
             </div>
 
-            {/* Benefits */}
-            <div className="mt-8 grid gap-3 border-t border-zinc-200 pt-7 sm:grid-cols-3">
+            <div className="mt-8 border-t border-zinc-200 pt-7">
               <div className="flex items-start gap-3">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
                   <FaTruck className="text-sm" />
@@ -183,48 +163,15 @@ export default function ProductDetails() {
                   </p>
                 </div>
               </div>
-
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
-                  <FaUndoAlt className="text-sm" />
-                </div>
-
-                <div>
-                  <p className="text-xs font-bold text-zinc-900">
-                    Easy returns
-                  </p>
-
-                  <p className="mt-1 text-[11px] leading-4 text-zinc-500">
-                    30-day returns
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700">
-                  <FaShieldAlt className="text-sm" />
-                </div>
-
-                <div>
-                  <p className="text-xs font-bold text-zinc-900">
-                    Secure checkout
-                  </p>
-
-                  <p className="mt-1 text-[11px] leading-4 text-zinc-500">
-                    Protected purchase
-                  </p>
-                </div>
-              </div>
             </div>
 
-            {/* Availability */}
             <div className="border-brand-100 bg-brand-50/60 mt-7 flex items-center gap-2 rounded-2xl border px-4 py-3">
               <div className="bg-brand-600 flex h-5 w-5 items-center justify-center rounded-full text-white">
                 <FaCheck className="text-[8px]" />
               </div>
 
               <p className="text-brand-800 text-xs font-semibold">
-                Available and ready to add to your cart
+                Available in the demo product catalog
               </p>
             </div>
           </div>

@@ -16,8 +16,8 @@ export default function SliderMain({ products = [] }) {
   }
 
   return (
-    <section className="page-container pt-5 sm:pt-7">
-      <div className="hero-slider relative overflow-hidden rounded-[28px] bg-zinc-950 sm:rounded-[36px]">
+    <section className="page-container min-w-0 pt-5 sm:pt-7">
+      <div className="hero-slider relative min-w-0 overflow-hidden rounded-[28px] bg-zinc-950 sm:rounded-[36px]">
         <Swiper
           loop={featuredProducts.length > 1}
           speed={700}
@@ -37,13 +37,13 @@ export default function SliderMain({ products = [] }) {
           className="nexa-hero-swiper"
         >
           {featuredProducts.map((product, index) => (
-            <SwiperSlide key={product.id}>
-              <div className="relative grid min-h-[560px] overflow-hidden lg:min-h-[610px] lg:grid-cols-[0.95fr_1.05fr]">
+            <SwiperSlide key={product.id} className="min-w-0">
+              <div className="relative grid min-h-[560px] min-w-0 overflow-hidden lg:min-h-[610px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
                 <div className="bg-brand-500/15 pointer-events-none absolute -top-40 -left-40 h-[420px] w-[420px] rounded-full blur-[100px]" />
 
                 <div className="bg-brand-500/10 pointer-events-none absolute -right-32 -bottom-40 h-[420px] w-[420px] rounded-full blur-[120px]" />
 
-                <div className="relative z-10 flex flex-col justify-center px-6 py-14 sm:px-10 lg:px-14 xl:px-16">
+                <div className="relative z-10 flex min-w-0 flex-col justify-center px-6 py-14 sm:px-10 lg:px-14 xl:px-16">
                   <div className="mb-6 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-sm">
                     <span className="bg-brand-400 h-1.5 w-1.5 rounded-full" />
 
@@ -58,11 +58,11 @@ export default function SliderMain({ products = [] }) {
                     {product.category}
                   </p>
 
-                  <h1 className="font-display max-w-xl text-4xl leading-[1.08] font-extrabold tracking-[-0.05em] text-white sm:text-5xl lg:text-[58px]">
+                  <h1 className="font-display max-w-xl min-w-0 text-4xl leading-[1.08] font-extrabold tracking-[-0.05em] text-white sm:text-5xl lg:text-[58px]">
                     {product.title}
                   </h1>
 
-                  <p className="mt-5 max-w-lg text-sm leading-7 text-zinc-400 sm:text-base">
+                  <p className="mt-5 max-w-lg min-w-0 text-sm leading-7 text-zinc-400 sm:text-base">
                     {product.description}
                   </p>
 
@@ -94,7 +94,7 @@ export default function SliderMain({ products = [] }) {
                   </div>
                 </div>
 
-                <div className="relative flex min-h-[310px] items-center justify-center px-8 pb-16 lg:min-h-0 lg:px-14 lg:pb-0">
+                <div className="relative flex min-h-[310px] min-w-0 items-center justify-center px-8 pb-16 lg:min-h-0 lg:px-14 lg:pb-0">
                   <div className="absolute h-[70%] w-[70%] rounded-full bg-white/[0.04] blur-sm" />
 
                   <div className="absolute h-[55%] w-[55%] rounded-full border border-white/[0.06]" />
@@ -107,25 +107,25 @@ export default function SliderMain({ products = [] }) {
                     className="relative z-10 h-[260px] w-full max-w-[430px] object-contain drop-shadow-[0_30px_45px_rgba(0,0,0,0.45)] sm:h-[320px] lg:h-[390px]"
                   />
 
-                  <div className="absolute right-5 bottom-6 left-5 z-20 flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur-xl sm:right-10 sm:left-10 lg:right-14 lg:bottom-10 lg:left-14">
-                    <div>
+                  <div className="absolute right-5 bottom-6 left-5 z-20 flex min-w-0 items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur-xl sm:right-10 sm:left-10 lg:right-14 lg:bottom-10 lg:left-14">
+                    <div className="min-w-0">
                       <p className="text-[10px] font-bold tracking-[0.16em] text-zinc-500 uppercase">
                         Customer rating
                       </p>
 
-                      <div className="mt-1 flex items-center gap-2">
-                        <span className="text-sm font-bold text-white">
+                      <div className="mt-1 flex min-w-0 items-center gap-2">
+                        <span className="shrink-0 text-sm font-bold text-white">
                           ★ {product.rating?.rate ?? "4.5"}
                         </span>
 
-                        <span className="text-xs text-zinc-500">
+                        <span className="truncate text-xs text-zinc-500">
                           ({product.rating?.count ?? 0} reviews)
                         </span>
                       </div>
                     </div>
 
-                    <span className="bg-brand-500/15 text-brand-300 rounded-full px-3 py-1.5 text-xs font-bold">
-                      In stock
+                    <span className="bg-brand-500/15 text-brand-300 shrink-0 rounded-full px-3 py-1.5 text-xs font-bold">
+                      Featured
                     </span>
                   </div>
                 </div>
