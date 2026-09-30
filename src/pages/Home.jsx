@@ -112,16 +112,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-export async function loader() {
-  const response = await fetch("https://fakestoreapi.com/products");
-
-  if (!response.ok) {
-    throw new Response("Unable to load products.", {
-      status: response.status,
-      statusText: response.statusText,
-    });
-  }
-
-  return response.json();
-}

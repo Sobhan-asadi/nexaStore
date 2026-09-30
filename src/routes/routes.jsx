@@ -1,8 +1,9 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import { loader as productLoader } from "../pages/DetailsPage.jsx";
-import { loader as homeLoader } from "../pages/Home.jsx";
+import RouteError from "../components/feedback/RouteError";
+import homeLoader from "../loaders/homeLoader";
+import productDetailsLoader from "../loaders/productDetailsLoader";
 
 const Layout = lazy(() => import("../pages/Layout.jsx"));
 const HomePage = lazy(() => import("../pages/Home.jsx"));
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <RouteError />,
     children: [
       {
         index: true,
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: "products/:productId",
         element: <DetailsPage />,
-        loader: productLoader,
+        loader: productDetailsLoader,
       },
       {
         path: "cart",

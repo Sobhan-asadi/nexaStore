@@ -29,7 +29,7 @@ const categories = [
     title: "Electronics",
     category: "electronics",
     description: "Tech essentials for work, entertainment, and daily life.",
-    image: null,
+    image: "/images (1).jpg",
     icon: FaLaptop,
   },
   {
@@ -37,7 +37,7 @@ const categories = [
     title: "Jewelry",
     category: "jewelery",
     description: "Simple finishing touches for every occasion.",
-    image: null,
+    image: "/images.jpg",
     icon: FaGem,
   },
 ];
@@ -48,16 +48,16 @@ export default function Category() {
 
     if (!productsSection) return;
 
-    productsSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
     window.dispatchEvent(
       new CustomEvent("nexa:category-change", {
         detail: category,
       }),
     );
+
+    productsSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
 
   return (
@@ -95,66 +95,39 @@ export default function Category() {
               key={item.id}
               type="button"
               onClick={() => handleCategoryClick(item.category)}
-              className={`group relative overflow-hidden rounded-[24px] text-left ${
+              className={`group relative overflow-hidden rounded-[24px] bg-zinc-900 text-left ${
                 item.featured
                   ? "min-h-[340px] sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:min-h-[520px]"
                   : "min-h-[250px]"
               }`}
             >
-              {item.image ? (
-                <>
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-                  />
+              <img
+                src={item.image}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/5" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/5" />
 
-                  <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md">
-                      <Icon />
-                    </div>
-
-                    <h3 className="font-display text-2xl font-bold tracking-[-0.03em] text-white">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-300">
-                      {item.description}
-                    </p>
-
-                    <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-white">
-                      Shop collection
-                      <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="group-hover:bg-brand-50 absolute inset-0 flex flex-col justify-between bg-zinc-100 p-6 transition-colors duration-300 sm:p-7">
-                  <div className="flex items-start justify-between">
-                    <div className="group-hover:text-brand-700 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-lg text-zinc-800 shadow-sm transition">
-                      <Icon />
-                    </div>
-
-                    <div className="group-hover:border-brand-200 group-hover:bg-brand-500 flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 bg-white text-xs text-zinc-600 transition group-hover:text-white">
-                      <FaArrowRight className="transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="font-display text-xl font-bold tracking-[-0.03em] text-zinc-950">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-6 text-zinc-500">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  <div className="pointer-events-none absolute -right-14 -bottom-14 h-36 w-36 rounded-full border-[24px] border-white/60 transition-transform duration-500 group-hover:scale-110" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md">
+                  <Icon />
                 </div>
-              )}
+
+                <h3 className="font-display text-xl font-bold tracking-[-0.03em] text-white sm:text-2xl">
+                  {item.title}
+                </h3>
+
+                <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-300">
+                  {item.description}
+                </p>
+
+                <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-white">
+                  Shop collection
+                  <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
+                </div>
+              </div>
             </button>
           );
         })}

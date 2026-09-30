@@ -1,13 +1,9 @@
-export default function ChoiceCard({
-  name,
-  value,
-  checked,
-  onChange,
-  icon: Icon,
-  title,
-  description,
-  price,
-}) {
+export default function ChoiceCard(props) {
+  const { name, value, checked, onChange, icon, title, description, price } =
+    props;
+
+  const Icon = icon;
+
   return (
     <label
       className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition ${

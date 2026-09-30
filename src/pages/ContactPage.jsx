@@ -276,7 +276,9 @@ function ContactField({
   );
 }
 
-function ContactLink({ href, icon: Icon, label, value, external = false }) {
+function ContactLink({ href, icon, label, value, external = false }) {
+  const Icon = icon;
+
   return (
     <a
       href={href}

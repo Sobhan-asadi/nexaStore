@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -18,6 +19,9 @@ import { cartActions } from "../store/cartSlice";
 export default function TrendingProducts({ products = [] }) {
   const dispatch = useDispatch();
 
+  const previousButtonRef = useRef(null);
+  const nextButtonRef = useRef(null);
+
   const trendingProducts = [...products]
     .sort(
       (a, b) =>
@@ -36,7 +40,10 @@ export default function TrendingProducts({ products = [] }) {
   }
 
   return (
-    <section className="page-container py-12 sm:py-16 lg:py-20">
+    <section
+      id="trending"
+      className="page-container scroll-mt-36 py-12 sm:py-16 lg:py-20"
+    >
       <div className="mb-7 flex items-end justify-between gap-5">
         <div>
           <p className="text-brand-700 text-xs font-bold tracking-[0.18em] uppercase">
@@ -53,17 +60,19 @@ export default function TrendingProducts({ products = [] }) {
 
         <div className="hidden shrink-0 items-center gap-2 sm:flex">
           <button
+            ref={previousButtonRef}
             type="button"
             aria-label="Previous trending products"
-            className="trending-prev flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-950 hover:text-white"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-950 hover:text-white"
           >
             <FaArrowLeft className="text-xs" />
           </button>
 
           <button
+            ref={nextButtonRef}
             type="button"
             aria-label="Next trending products"
-            className="trending-next flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-950 hover:text-white"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-zinc-300 hover:bg-zinc-950 hover:text-white"
           >
             <FaArrowRight className="text-xs" />
           </button>
@@ -73,8 +82,12 @@ export default function TrendingProducts({ products = [] }) {
       <Swiper
         modules={[Navigation]}
         navigation={{
-          prevEl: ".trending-prev",
-          nextEl: ".trending-next",
+          prevEl: previousButtonRef.current,
+          nextEl: nextButtonRef.current,
+        }}
+        onBeforeInit={(swiper) => {
+          swiper.params.navigation.prevEl = previousButtonRef.current;
+          swiper.params.navigation.nextEl = nextButtonRef.current;
         }}
         spaceBetween={16}
         slidesPerView={1.2}
@@ -100,10 +113,10 @@ export default function TrendingProducts({ products = [] }) {
             spaceBetween: 20,
           },
         }}
-        className="overflow-visible!"
+        className="!overflow-visible"
       >
         {trendingProducts.map((product) => (
-          <SwiperSlide key={product.id} className="h-auto!">
+          <SwiperSlide key={product.id} className="!h-auto">
             <article className="group h-full overflow-hidden rounded-[24px] border border-zinc-200 bg-white">
               <Link
                 to={`/products/${product.id}`}
@@ -160,27 +173,9 @@ export default function TrendingProducts({ products = [] }) {
         ))}
       </Swiper>
 
-      <div className="mt-5 flex items-center gap-2 sm:hidden">
-        <button
-          type="button"
-          aria-label="Previous trending products"
-          className="trending-prev flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700"
-        >
-          <FaArrowLeft className="text-xs" />
-        </button>
-
-        <button
-          type="button"
-          aria-label="Next trending products"
-          className="trending-next flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700"
-        >
-          <FaArrowRight className="text-xs" />
-        </button>
-
-        <span className="ml-2 text-xs font-medium text-zinc-400">
-          Swipe to explore
-        </span>
-      </div>
+      <p className="mt-5 text-xs font-medium text-zinc-400 sm:hidden">
+        Swipe to explore
+      </p>
     </section>
   );
 }
