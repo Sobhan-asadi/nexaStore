@@ -56,22 +56,6 @@ export function validateCheckoutForm(values) {
   return errors;
 }
 
-export function calculateCartSubtotal(items) {
-  return items.reduce((total, item) => total + item.price * item.quantity, 0);
-}
-
-export function calculateShippingPrice(subtotal, shippingMethod) {
-  if (shippingMethod === "express") {
-    return EXPRESS_SHIPPING_PRICE;
-  }
-
-  if (subtotal >= FREE_SHIPPING_THRESHOLD) {
-    return 0;
-  }
-
-  return STANDARD_SHIPPING_PRICE;
-}
-
 export function createDemoOrder({
   form,
   items,
